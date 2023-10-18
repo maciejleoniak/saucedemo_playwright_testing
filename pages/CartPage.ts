@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
 export class CartPage {
     page: Page;
@@ -22,6 +22,7 @@ export class CartPage {
     readonly continueButton = '[data-test="continue"]';
     readonly finishButton = '[data-test="finish"]';
     readonly backToProductsButton = '[data-test="back-to-products"]';
+    readonly checkoutCompleteContainerLocator = '#checkout_complete_container';
 
     constructor(page: Page) {
         this.page = page;
@@ -42,14 +43,45 @@ export class CartPage {
         await this.page.locator(this.cartItemCountAfterRemovalSelector).click();
     }
 
-    async proceedToCheckout(): Promise<void> {
+    async proceedToCheckout() {
         await this.page.locator(this.checkoutButton).click();
         await this.page.locator(this.firstNameInput).fill('Johnny');
         await this.page.locator(this.lastNameInput).fill('Tester');
         await this.page.locator(this.postalCodeInput).fill('007');
         await this.page.locator(this.continueButton).click();
-        await this.page.locator('text=Total: $123.07').click();
-        // await this.page.locator(this.finishButton).click();
-        // await this.page.locator(this.backToProductsButton).click();
     }
+
+    async checkOutVerification() {
+        const expectedProducts = ['Backpack', 'Bike Light', 'Fleece Jacket', 'Onesie', 'Test.allTheThings() T-Shirt (Red)'];
+        const orderText = await this.page.locator('.cart_list').innerText();
+        const allExpectedProductsIncluded = expectedProducts.every(product => orderText.includes(product));
+        expect(allExpectedProductsIncluded).toBe(true);
+
+        const itemPrices = await this.page.locator('.cart_list').innerText();
+        const pricesArray = itemPrices.match(/\$\d+\.\d+/g);
+        const totalPrice = pricesArray ? pricesArray.reduce((acc, price) => acc + parseFloat(price.replace('$', '')), 0).toFixed(2) : 0.00;
+
+        const subtotalElement = await this.page.locator('.summary_subtotal_label');
+        const subtotalText = await subtotalElement.innerText();
+        const matchResult = subtotalText.match(/\d+\.\d+/);
+        if (matchResult !== null) {
+            const itemTotalText = parseFloat(matchResult[0]).toFixed(2);
+            expect(totalPrice).toBe(itemTotalText);
+        } else {
+            console.error("Null");
+        }
+    }
+
+    async finishCheckout() {
+        await this.page.locator(this.finishButton).click();
+    }
+
+    async orderConfirm() {
+        await this.page.waitForSelector(this.checkoutCompleteContainerLocator);
+        const checkoutCompleteContainer = await this.page.locator('#checkout_complete_container');
+        const checkoutCompleteExists = await checkoutCompleteContainer.isVisible();
+        expect(checkoutCompleteExists).toBeTruthy();
+        await this.page.locator(this.backToProductsButton).click();
+    }
+
 }
