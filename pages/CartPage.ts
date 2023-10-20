@@ -12,7 +12,7 @@ export class CartPage {
         redTShirt: '[data-test="add-to-cart-test\\.allthethings\\(\\)-t-shirt-\\(red\\)"]'
     };
 
-    readonly cartItemCountSelector = 'a:has-text("6")';
+    readonly cartItemCountSelector = '#shopping_cart_container a';
     readonly removeBoltTShirtButton = '[data-test="remove-sauce-labs-bolt-t-shirt"]';
     readonly cartItemCountAfterRemovalSelector = 'a:has-text("5")';
     readonly checkoutButton = '[data-test="checkout"]';
@@ -23,6 +23,7 @@ export class CartPage {
     readonly finishButton = '[data-test="finish"]';
     readonly backToProductsButton = '[data-test="back-to-products"]';
     readonly checkoutCompleteContainerLocator = '#checkout_complete_container';
+    readonly backpackPageItemSelector = 'text=backpack';
 
     constructor(page: Page) {
         this.page = page;
@@ -36,6 +37,14 @@ export class CartPage {
         await this.page.locator(this.addToCartItems.onesie).click();
         await this.page.locator(this.addToCartItems.redTShirt).click();
         await this.page.locator(this.cartItemCountSelector).click();
+    }
+
+    async goToItemPage() {
+        await this.page.locator(this.backpackPageItemSelector)
+    }
+
+    async addToCarFromPageItem() {
+        await this.page.locator(this.addToCartItems.backpack)
     }
 
     async removeBoltTShirt() {
@@ -83,5 +92,15 @@ export class CartPage {
         expect(checkoutCompleteExists).toBeTruthy();
         await this.page.locator(this.backToProductsButton).click();
     }
+
+async addToCartFromItemPage (){
+    // await page.locator('text=backpack').click();
+    // await page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click();
+    // await page.locator('#shopping_cart_container a').click();
+  
+  
+    // const cartItemVisible = await page.locator('.cart_item').isVisible();
+    // expect(cartItemVisible).toBe(false);
+}
 
 }

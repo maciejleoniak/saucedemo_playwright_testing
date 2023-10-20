@@ -2,10 +2,19 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { CartPage } from '../pages/CartPage';
 
-test('Checkout flow verification with another creditential', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.login('performance_glitch_user', 'secret_sauce');
+const username = 'performance_glitch_user';
+const password = 'secret_sauce';
 
+test.beforeEach(async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.login(username, password);
+});
+
+test.afterEach(async ({ page }) => {
+    await page.close()
+})
+
+test('Checkout flow verification with another creditential', async ({ page }) => {
     const cartPage = new CartPage(page);
     await cartPage.addToCart();
     await cartPage.removeBoltTShirt();
