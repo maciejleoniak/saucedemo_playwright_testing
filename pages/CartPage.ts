@@ -24,6 +24,7 @@ export class CartPage {
     readonly backToProductsButton = '[data-test="back-to-products"]';
     readonly checkoutCompleteContainerLocator = '#checkout_complete_container';
     readonly backpackPageItemSelector = 'text=backpack';
+    readonly cartItem = '.cart_item';
 
     constructor(page: Page) {
         this.page = page;
@@ -93,14 +94,13 @@ export class CartPage {
         await this.page.locator(this.backToProductsButton).click();
     }
 
-async addToCartFromItemPage (){
-    // await page.locator('text=backpack').click();
-    // await page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click();
-    // await page.locator('#shopping_cart_container a').click();
-  
-  
-    // const cartItemVisible = await page.locator('.cart_item').isVisible();
-    // expect(cartItemVisible).toBe(false);
-}
+    async addToCartFromItemPage() {
+        await this.page.locator(this.backpackPageItemSelector).click();
+        await this.page.locator(this.addToCartItems.fleeceJacket).click();
+        await this.page.locator(this.cartItemCountSelector)
+
+        const cartItemVisible = await this.page.locator(this.cartItem).isVisible();
+        expect(cartItemVisible).toBe(false);
+    }
 
 }

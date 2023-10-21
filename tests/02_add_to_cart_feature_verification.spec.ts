@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { CartPage } from '../pages/CartPage';
 
@@ -16,16 +16,7 @@ test.afterEach(async ({ page }) => {
 
 test('Add to cart with problem user', async ({ page }) => {
 
-  // it should be in some page (propably in cart page)
+  const cartPage = new CartPage(page);
+  cartPage.addToCarFromPageItem();
 
-
-  // await page.locator('text=backpack').click();
-  // await page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click();
-  // await page.locator('#shopping_cart_container a').click();
-
-
-  // const cartItemVisible = await page.locator('.cart_item').isVisible();
-  // expect(cartItemVisible).toBe(false);
-
-  //
 });

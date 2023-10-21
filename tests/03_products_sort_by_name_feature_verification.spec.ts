@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
-import { CartPage } from '../pages/CartPage';
 
 const username = 'standard_user';
 const password = 'secret_sauce';
