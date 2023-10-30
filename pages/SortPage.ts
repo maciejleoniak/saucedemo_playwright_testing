@@ -43,4 +43,8 @@ export class SortPage {
 
         return { item0, item1 };
     }
+
+    async sortByNameVerification(){
+
+    };
 }
