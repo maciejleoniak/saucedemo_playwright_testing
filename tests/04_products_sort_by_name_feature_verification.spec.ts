@@ -16,15 +16,16 @@ test.afterEach(async ({ page }) => {
 })
 
 test.describe('sort option work properly for every select options', () => {
-  test('select option for price - high to low', async ({ page }) => {
-    const sortPage = new SortPage(page);
-    await sortPage.sortByNameAtoZ();
+    test('select option for name - A to Z', async ({ page }) => {
+        const sortPage = new SortPage(page);
+        await sortPage.sortByNameAtoZ();
+        await sortPage.sortByNameVerification();
+    
+    });
 
-    const cointenerItem = page.locator('#inventory_container > div > div:nth-child(1) > div.inventory_item_description').textContent();
-    console.log(cointenerItem);
-    const firstItem = cointenerItem;
-    console.log(firstItem);
-
-
-});
+    test('select option for name - Z to A', async ({ page }) => {
+        const sortPage = new SortPage(page);
+        await sortPage.sortByNameZtoA();
+        await sortPage.sortByNameVerification();
+    });
 });
