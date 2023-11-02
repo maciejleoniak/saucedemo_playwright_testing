@@ -11,8 +11,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }) => {
-  await page.close()
-})
+  await page.close();
+});
 
 test.describe('sort option work properly for every select options', () => {
   test('select option for price - high to low', async ({ page }) => {
@@ -20,16 +20,14 @@ test.describe('sort option work properly for every select options', () => {
     await sortPage.sortByPriceHightoLow();
     await sortPage.sortByPriceVerification()
     expect((await sortPage.sortByPriceVerification()).item0).toBeGreaterThanOrEqual((await sortPage.sortByPriceVerification()).item1);
-  })
+  });
 
   test('select option for price - low to high', async ({ page }) => {
     const sortPage = new SortPage(page);
     await sortPage.sortByPriceLowToHigh();
     await sortPage.sortByPriceVerification()
     expect((await sortPage.sortByPriceVerification()).item1).toBeGreaterThanOrEqual((await sortPage.sortByPriceVerification()).item0);
-   
-  })
-
+  });
 });
 
 

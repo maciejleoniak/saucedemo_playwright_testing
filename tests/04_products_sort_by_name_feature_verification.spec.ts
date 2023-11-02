@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { SortPage } from '../pages/SortPage';
 
@@ -12,8 +12,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }) => {
-    await page.close()
-})
+    await page.close();
+});
 
 test.describe('sort option work properly for every select options', () => {
     test('select option for name - A to Z', async ({ page }) => {

@@ -11,8 +11,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }) => {
-    await page.close()
-})
+    await page.close();
+});
 
 test('Checkout flow verification', async ({ page }) => {
     const cartPage = new CartPage(page);

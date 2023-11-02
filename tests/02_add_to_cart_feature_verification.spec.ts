@@ -11,12 +11,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }) => {
-  await page.close()
-})
+  await page.close();
+});
 
 test('Add to cart with problem user', async ({ page }) => {
-
   const cartPage = new CartPage(page);
-  cartPage.addToCarFromPageItem();
-
+  await cartPage.addToCarFromPageItem();
 });

@@ -28,7 +28,7 @@ export class CartPage {
 
     constructor(page: Page) {
         this.page = page;
-    }
+    };
 
     async addToCart() {
         await this.page.locator(this.addToCartItems.backpack).click();
@@ -38,20 +38,20 @@ export class CartPage {
         await this.page.locator(this.addToCartItems.onesie).click();
         await this.page.locator(this.addToCartItems.redTShirt).click();
         await this.page.locator(this.cartItemCountSelector).click();
-    }
+    };
 
     async goToItemPage() {
-        await this.page.locator(this.backpackPageItemSelector)
-    }
+        await this.page.locator(this.backpackPageItemSelector);
+    };
 
     async addToCarFromPageItem() {
-        await this.page.locator(this.addToCartItems.backpack)
-    }
+        await this.page.locator(this.addToCartItems.backpack);
+    };
 
     async removeBoltTShirt() {
         await this.page.locator(this.removeBoltTShirtButton).click();
         await this.page.locator(this.cartItemCountAfterRemovalSelector).click();
-    }
+    };
 
     async proceedToCheckout() {
         await this.page.locator(this.checkoutButton).click();
@@ -59,7 +59,7 @@ export class CartPage {
         await this.page.locator(this.lastNameInput).fill('Tester');
         await this.page.locator(this.postalCodeInput).fill('007');
         await this.page.locator(this.continueButton).click();
-    }
+    };
 
     async checkOutVerification() {
         const expectedProducts = ['Backpack', 'Bike Light', 'Fleece Jacket', 'Onesie', 'Test.allTheThings() T-Shirt (Red)'];
@@ -80,11 +80,11 @@ export class CartPage {
         } else {
             console.error("Null");
         }
-    }
+    };
 
     async finishCheckout() {
         await this.page.locator(this.finishButton).click();
-    }
+    };
 
     async orderConfirm() {
         await this.page.waitForSelector(this.checkoutCompleteContainerLocator);
@@ -92,15 +92,14 @@ export class CartPage {
         const checkoutCompleteExists = await checkoutCompleteContainer.isVisible();
         expect(checkoutCompleteExists).toBeTruthy();
         await this.page.locator(this.backToProductsButton).click();
-    }
+    };
 
     async addToCartFromItemPage() {
         await this.page.locator(this.backpackPageItemSelector).click();
         await this.page.locator(this.addToCartItems.fleeceJacket).click();
-        await this.page.locator(this.cartItemCountSelector)
+        await this.page.locator(this.cartItemCountSelector);
 
         const cartItemVisible = await this.page.locator(this.cartItem).isVisible();
         expect(cartItemVisible).toBe(false);
-    }
-
-}
+    };
+};
