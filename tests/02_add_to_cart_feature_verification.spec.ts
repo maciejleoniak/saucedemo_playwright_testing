@@ -16,5 +16,6 @@ test.afterEach(async ({ page }) => {
 
 test('Add to cart with problem user', async ({ page }) => {
   const cartPage = new CartPage(page);
-  await cartPage.addToCarFromPageItem();
+  await cartPage.addToCartFromItemPage();
+  await cartPage.addToCartFromItemPageVerification();
 });

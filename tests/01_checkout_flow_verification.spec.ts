@@ -16,9 +16,7 @@ test.afterEach(async ({ page }) => {
 
 test('Checkout flow verification', async ({ page }) => {
     const cartPage = new CartPage(page);
-    await cartPage.addToCart();
-    await cartPage.removeBoltTShirt();
-    await cartPage.proceedToCheckout();
+    await cartPage.checkOutFlow();
     await cartPage.checkOutVerification();
-    await cartPage.finishCheckout();
+
 });

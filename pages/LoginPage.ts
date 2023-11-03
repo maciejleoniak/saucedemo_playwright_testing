@@ -3,21 +3,25 @@ import { Page, expect } from '@playwright/test';
 export class LoginPage {
     page: Page;
 
-    readonly loginErrorMessageSelector = '#login_button_container > div > form > div.error-message-container.error';
+    readonly host = 'https://www.saucedemo.com/';
+    readonly usernameSelector = '[data-test="username"]';
+    readonly passwordSelector = '[data-test="password"]';
+    readonly loginButtonSelector = '[data-test="login-button"]';
+    readonly loginErrorMessageSelector = '[data-test="error"]';
 
     constructor(page: Page) {
         this.page = page;
     };
 
     async login(username: string, password: string) {
-        await this.page.goto('https://www.saucedemo.com/');
-        await this.page.locator('[data-test="username"]').fill(username);
-        await this.page.locator('[data-test="password"]').fill(password);
-        await this.page.locator('[data-test="login-button"]').click();
+        await this.page.goto(this.host);
+        await this.page.locator(this.usernameSelector).fill(username);
+        await this.page.locator(this.passwordSelector).fill(password);
+        await this.page.locator(this.loginButtonSelector).click();
     };
 
     async loginErrorUserVerification() {
-        const isVisible = await this.page.locator('[data-test="error"]').isVisible();
+        const isVisible = await this.page.locator(this.loginErrorMessageSelector).isVisible();
         await expect(isVisible).toBe(true);
     };
 };

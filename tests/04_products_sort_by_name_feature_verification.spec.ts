@@ -2,7 +2,6 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { SortPage } from '../pages/SortPage';
 
-
 const username = 'standard_user';
 const password = 'secret_sauce';
 
